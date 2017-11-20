@@ -1,0 +1,114 @@
+<div class="container">
+  <h2>Paciente</h2>
+  <hr>
+  <!--tabla citas-->
+  <div>
+    <div class="container">
+      <h3>Citas agendadas</h3>
+        <table class="table table-hover">
+          <tbody>
+            <tr data-toggle="modal" >
+              <ul class="list-group">
+              <li *ngFor="let cita of citas | async" class="list-group-item" (click)="set_current_cita(cita, cita.$key)">
+                  Nombre: {{cita.nombre}}<br>
+                  Hora: {{cita.hora}}<br>
+                  Fecha: {{cita.fecha}}<br>
+                <td>
+                  <br>
+                  <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modalDetallesCita">Ver detalles</button>
+                  <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modalReagendarCita">Reagendar Cita</button>
+                  <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#modalCancelarCita">Cancelar cita</button>
+                </td>
+              </li>
+             </ul>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+     <hr>
+   </div>
+
+  <!-- Detalles cita-->
+  <div class="modal fade" id="modalDetallesCita" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h1 class="modal-title">Detalles de Cita</h1>
+        </div>
+        <div class="modal-body">
+          <form class="form-signin" id="myform">
+            {{cita.fecha}}
+            <br>
+            {{cita.hora}}
+            <br>
+            <br>
+            <label for="name">Diagnostico</label>
+            <br>
+            {{cita.diagnostico}}
+            <br>
+            <br>
+            <label for="name">Receta</label>
+            <br>
+            {{cita.receta}}
+            <br>
+            <br>
+            <label for="name">Comentarios adicionales</label>
+            <br>
+            {{cita.comentarios}}
+            <br>
+            <br>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Reagendar cita-->
+  <div class="modal fade" id="modalReagendarCita" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h1 class="modal-title">Reagendar Cita</h1>
+        </div>
+        <div class="modal-body">
+          <form class="form-signin" id="myform2" (submit)="actualizar_cita($event, fecha2.value, hora2.value)">
+            <input #fecha2 type="text" class="form-control" placeholder="Fecha (DD/MM/AAAA)" required="" value="{{cita.fecha}}">
+            <br>
+            <input #hora2 type="text" class="form-control" placeholder="Hora (HH:MM)" required="" value="{{cita.hora}}">
+            <br>
+            <br>
+            <button class="btn btn-md btn-primary btn-block" type="submit" data-toggle="modal" data-target="#modalReagendarCita">Actualizar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Cancelar Cita-->
+  <div class="modal fade" id="modalCancelarCita" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h1 class="modal-title">Cancelar Cita</h1>
+        </div>
+        <div class="modal-body">
+
+
+          <form class="form-signin" (submit)="cancelar_cita($event)">
+            <button class="btn btn-md btn-primary btn-block" type="submit" data-toggle="modal" data-target="#modalCancelarCita">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>

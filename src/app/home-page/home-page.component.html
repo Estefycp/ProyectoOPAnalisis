@@ -1,0 +1,177 @@
+<div class="container">
+  <h2>Doctor</h2>
+  <hr>
+  <!--tabla citas-->
+  <div>
+    <div class="container">
+      <h3>Citas agendadas</h3>
+      <table class="table table-hover">
+        <tbody>
+          <tr data-toggle="modal">
+            <ul class="list-group">
+              <li *ngFor="let cita of citas | async" class="list-group-item" (click)="set_current_cita(cita, cita.$key)">
+                Nombre: {{cita.nombre}}
+                <br> Hora: {{cita.hora}}
+                <br> Fecha: {{cita.fecha}}
+                <br>
+                <td>
+                  <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modalModificarCita">Modificar Cita</button>
+                  <button type="button" class="btn btn-danger btn-md" data-toggle="modal" data-target="#modalCancelarCita">Cancelar cita</button>
+                </td>
+              </li>
+            </ul>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+  </div>
+
+  <div class="text-center">
+    <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#modalCrearCita">Agendar cita</button>
+    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalCrearPaciente">Registrar paciente</button>
+
+    <br>
+    <br>
+  </div>
+
+  <!-- Crear cita-->
+  <div class="modal fade" id="modalCrearCita" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h1 class="modal-title">Agendar cita</h1>
+        </div>
+        <div class="modal-body">
+          <form class="form-signin" id="myform" (submit)="crear_cita($event, nombre.value, fecha.value, hora.value,diagnostico.value,receta.value,comentarios.value)">
+            <input #nombre type="text" class="form-control" placeholder="Nombre del Paciente" required="">
+            <br>
+            <input #fecha type="text" class="form-control" placeholder="Fecha (DD/MM/AAAA)" required="">
+            <br>
+            <input #hora type="text" class="form-control" placeholder="Hora (HH:MM)" required="">
+            <br>
+            <label for="name">Diagnostico</label>
+            <textarea #diagnostico type="text" class="form-control" required=""></textarea>
+            <br>
+            <label for="name">Receta</label>
+            <textarea #receta type="text" class="form-control" required=""></textarea>
+            <br>
+            <label for="name">Comentarios adicionales</label>
+            <textarea #comentarios type="text" class="form-control" required=""></textarea>
+            <br>
+            <button class="btn btn-md btn-primary btn-block" type="submit" data-toggle="modal" data-target="#modalCrearCita">Agendar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Modificar cita-->
+  <div class="modal fade" id="modalModificarCita" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h1 class="modal-title">Modificar Cita</h1>
+        </div>
+        <div class="modal-body">
+          <form class="form-signin" id="myform2" (submit)="actualizar_cita($event, fecha2.value, hora2.value,diagnostico2.value,receta2.value,comentarios2.value)">
+            <input #fecha2 type="text" class="form-control" placeholder="Fecha (DD/MM/AAAA)" required="" value="{{cita.fecha}}">
+            <br>
+            <input #hora2 type="text" class="form-control" placeholder="Hora (HH:MM)" required="" value="{{cita.hora}}">
+            <br>
+            <label for="name">Diagnostico</label>
+            <textarea #diagnostico2 type="text" class="form-control" required="" value="{{cita.diagnostico}}"></textarea>
+            <br>
+            <label for="name">Receta</label>
+            <textarea #receta2 type="text" class="form-control" required="" value="{{cita.receta}}"></textarea>
+            <br>
+            <label for="name">Comentarios adicionales</label>
+            <textarea #comentarios2 type="text" class="form-control" required="" value="{{cita.comentarios}}"></textarea>
+            <br>
+            <button class="btn btn-md btn-primary btn-block" type="submit" data-toggle="modal" data-target="#modalModificarCita">Actualizar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Cancelar Cita-->
+  <div class="modal fade" id="modalCancelarCita" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h1 class="modal-title">Cancelar Cita</h1>
+        </div>
+        <div class="modal-body">
+
+
+          <form class="form-signin" (submit)="cancelar_cita($event)">
+            <button class="btn btn-md btn-primary btn-block" type="submit" data-toggle="modal" data-target="#modalCancelarCita">Cancelar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Registrar paciente-->
+  <div class="modal fade" id="modalCrearPaciente" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <h1 class="modal-title">Registrar paciente</h1>
+        </div>
+        <div class="modal-body">
+
+
+          <form class="form-signin" (submit)="register($event, name.value, email.value, password.value, utype.value)">
+            <label for="name" class="sr-only">Name</label>
+            <input #name type="text" id="name" class="form-control" placeholder="Name" required="">
+            <br>
+            <label for="email" class="sr-only">Email address</label>
+            <input #email type="email" id="email" class="form-control" placeholder="Email address" required="" autofocus="">
+            <br>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input #password type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
+            <br>
+            <label for="utype" class="sr-only">Type</label>
+            <select #utype type="utype" id="utype" class="form-control" required="" hidden="">
+              <option value="paciente">Paciente</option>
+            </select>
+            <br>
+            <button class="btn btn-md btn-primary btn-block" type="submit" onsubmit="window.location.assign('#close')">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- <div class="container">
+    <ul class="list-group">
+    <li *ngFor="let paciente of pacientes | async" class="list-group-item">
+        {{paciente.key}}
+    </li>
+  </ul>
+  </div> -->
+
+</div>
