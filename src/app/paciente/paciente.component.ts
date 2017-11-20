@@ -46,7 +46,7 @@ export class PacienteComponent implements OnInit {
             limitToLast: 20,
             orderByKey: true
           }
-        })
+        });
         return this.citas;
       });
   }
@@ -70,7 +70,7 @@ export class PacienteComponent implements OnInit {
       +horal[1] >= 0 &&
       +horal[1] < 60;
     if (!validfecha || !validhora || this.cid == '' || this.cita == null) {
-      console.log('Hora o fecha no validos.');
+      alert('Hora o fecha no validos.');
       return;
     }
     var cfecha = [+fechal[2], +fechal[1], +fechal[0], +horal[0], +horal[1]];
@@ -79,13 +79,13 @@ export class PacienteComponent implements OnInit {
         break;
       }
       else if (cfecha[i] - now[i] < 0) {
-        console.log('Fecha pasada.');
+        alert('Fecha pasada.');
         return;
       }
     }
     var daycheck = (now[0] == cfecha[0]) && (now[1] == cfecha[1]) && (now[2] == cfecha[2]);
     if (daycheck) {
-      console.log('Same day.');
+      alert('Es hoy mismo.');
       return;
     }
 
@@ -109,7 +109,7 @@ export class PacienteComponent implements OnInit {
           var done = false;
           var hi = this.af.database.list('Doctores', {
             query: {
-              orderByChild: 'name',
+              // orderByChild: 'name',
               // equalTo: this.cita.nombre,
               // limitToFirst: 1
             }
@@ -120,7 +120,7 @@ export class PacienteComponent implements OnInit {
               done = true;
               var doc = -1;
               for (var i = 0; i < res.length; ++i) {
-                if (this.cid in res[i].Citas) {
+                if ('Citas' in res[i] && this.cid in res[i].Citas) {
                   // console.log(res[i].$key);
                   doc = i;
                   break;
@@ -132,14 +132,15 @@ export class PacienteComponent implements OnInit {
               this.ds.af.auth.subscribe(
                 (auth) => {
                   this.userID = auth.uid;
-                  this.ds.updateCitaPaciente(this.userID, this.cid, fecha, hora, this.cita.diagnostico, this.cita.receta, this.cita.comentarios);
+                  this.ds.updateCitaPaciente(this.userID, this.cid, this.cita.nombre, fecha, hora, this.cita.diagnostico, this.cita.receta, this.cita.comentarios);
                   // this.ds.updateCitaDoctor(this.userID, this.cid, this.cita.nombre, fecha, hora, this.cita.diagnostico, this.cita.receta, this.cita.comentarios);
                 });
               this.ds.updateCitaDoctor(res[doc].$key, this.cid, this.cita.nombre, fecha, hora, this.cita.diagnostico, this.cita.receta, this.cita.comentarios);
               // this.ds.updateCitaPaciente(res[0].$key, this.cid, fecha, hora, this.cita.diagnostico, this.cita.receta, this.cita.comentarios);
             }
           }).catch((error) => {
-            console.log('No se encontro el paciente.');
+            // console.log(error);
+            alert('No se encontro el doctor.');
           });
         }
       }
@@ -155,7 +156,7 @@ export class PacienteComponent implements OnInit {
     var cfecha = [+fechal[2], +fechal[1], +fechal[0], +horal[0], +horal[1]];
     var daycheck = (now[0] == cfecha[0]) && (now[1] == cfecha[1]) && (now[2] == cfecha[2]);
     if (daycheck) {
-      console.log('Same day.');
+      alert('Same day.');
       return;
     }
     for (var i = 0; cfecha.length; ++i) {
@@ -163,7 +164,7 @@ export class PacienteComponent implements OnInit {
         break;
       }
       else if (cfecha[i] - now[i] < 0) {
-        console.log('Fecha pasada.');
+        alert('Fecha pasada.');
         return;
       }
     }
@@ -180,7 +181,7 @@ export class PacienteComponent implements OnInit {
         done = true;
         var doc = -1;
         for (var i = 0; i < res.length; ++i) {
-          if (this.cid in res[i].Citas) {
+          if ('Citas' in res[i] && this.cid in res[i].Citas) {
             // console.log(res[i].$key);
             doc = i;
             break;
@@ -198,7 +199,7 @@ export class PacienteComponent implements OnInit {
         this.ds.cancelarCitaDoctor(res[doc].$key, this.cid);
       }
     }).catch((error) => {
-      console.log('No se encontro el doctor.');
+      alert('No se encontro el doctor.');
     });
   }
 

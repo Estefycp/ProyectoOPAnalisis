@@ -168,14 +168,15 @@ export class DataService {
     });
   }
 
-  updateCitaPaciente(Pid, Cid, fecha, hora, diagnostico, receta, comentarios) {
+  updateCitaPaciente(Pid, Cid, nombre, fecha, hora, diagnostico, receta, comentarios) {
     return this.af.database.object(this.PacientePath + '/' + Pid + '/' +
       this.CitasPath + '/' + Cid).set({
         fecha: fecha,
         hora: hora,
         diagnostico: diagnostico,
         receta: receta,
-        comentarios: comentarios
+        comentarios: comentarios,
+        nombre: nombre
       });
   }
   createCitaPaciente(cita: Cita, pacienteId: String): firebase.Promise<any> {

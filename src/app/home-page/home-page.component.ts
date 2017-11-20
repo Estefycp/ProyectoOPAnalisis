@@ -72,7 +72,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
       +horal[1] >= 0 &&
       +horal[1] < 60;
     if (!validfecha || !validhora) {
-      console.log('Hora o fecha no validos.');
+      alert('Hora o fecha no validos.');
       return;
     }
     var cfecha = [+fechal[2], +fechal[1], +fechal[0], +horal[0], +horal[1]];
@@ -81,7 +81,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
         break;
       }
       else if(cfecha[i] - now[i] < 0){
-        console.log('Fecha pasada.');
+        alert('Fecha pasada.');
         return;
       }
     }
@@ -125,7 +125,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
             if (!done) {
               // paciente = res[0].$key
               this.ds.createCitaPaciente(cita_obj, res[0].$key).then((res) => {
-                // console.log('RES: ' + res.key);
+                // alert('RES: ' + res.key);
                 this.ds.af.auth.subscribe(
                   (auth) => {
                     this.userID = auth.uid;
@@ -135,7 +135,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
               done = true;
             }
           }).catch((error) => {
-            console.log('No se encontro el paciente.');
+            alert('No se encontro el paciente.');
           });
         }
       }
@@ -160,7 +160,6 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
 
   actualizar_cita(event, fecha: string, hora: string, diagnostico: string, receta: string, comentarios: string) {
     event.preventDefault();
-    console.log(diagnostico);
     var today = new Date();
     var now = [today.getFullYear(), today.getMonth() + 1, today.getDate(), today.getHours(), today.getMinutes()];
 
@@ -178,7 +177,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
       +horal[1] >= 0 &&
       +horal[1] < 60;
     if (!validfecha || !validhora || this.cid == '' || this.cita == null) {
-      console.log('Hora o fecha no validos.');
+      alert('Hora o fecha no validos.');
       return;
     }
     var cfecha = [+fechal[2], +fechal[1], +fechal[0], +horal[0], +horal[1]];
@@ -187,13 +186,13 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
         break;
       }
       else if(cfecha[i] - now[i] < 0){
-        console.log('Fecha pasada.');
+        alert('Fecha pasada.');
         return;
       }
     }
     var daycheck = (now[0] == cfecha[0]) && (now[1] == cfecha[1]) && (now[2] == cfecha[2]);
     if(daycheck){
-      console.log('Same day.');
+      alert('Same day.');
       return;
     }
 
@@ -230,11 +229,11 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
                   this.userID = auth.uid;
                   this.ds.updateCitaDoctor(this.userID, this.cid, this.cita.nombre, fecha, hora, diagnostico, receta, comentarios);
                 });
-              this.ds.updateCitaPaciente(res[0].$key, this.cid, fecha, hora, diagnostico, receta, comentarios);
+              this.ds.updateCitaPaciente(res[0].$key, this.cid, this.cita.nombre, fecha, hora, diagnostico, receta, comentarios);
               done = true;
             }
           }).catch((error) => {
-            console.log('No se encontro el paciente.');
+            alert('No se encontro el paciente.');
           });
         }
       }
@@ -260,7 +259,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
     // var daycheck3 = (now[0] > cfecha[0]);
     // var daycheck = daycheck1 || daycheck2 || daycheck3;
     if(daycheck){
-      console.log('Same day.');
+      alert('Same day.');
       return;
     }
     for(var i = 0; cfecha.length; ++i){
@@ -268,7 +267,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
         break;
       }
       else if(cfecha[i] - now[i] < 0){
-        console.log('Fecha pasada.');
+        alert('Fecha pasada.');
         return;
       }
     }
@@ -293,7 +292,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
         done = true;
       }
     }).catch((error) => {
-      console.log('No se encontro el paciente.');
+      alert('No se encontro el paciente.');
     });
     // this.ds.cancelarCitaDoctor(this.userID, this.cid);
   }
