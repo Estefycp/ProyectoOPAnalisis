@@ -138,6 +138,9 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
             alert('No se encontro el paciente.');
           });
         }
+        else if(used){
+          alert('Fecha ocupada');
+        }
       }
     });
   }
@@ -235,6 +238,9 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
           }).catch((error) => {
             alert('No se encontro el paciente.');
           });
+        }
+        else if(used){
+          alert('Fecha ocupada');
         }
       }
     });

@@ -204,6 +204,9 @@ export class SecretariaComponent implements OnInit {
             alert('No se encontro el paciente.');
           });
         }
+        else if(used){
+          alert('Fecha ocupada');
+        }
       }
     });
   }
@@ -350,6 +353,9 @@ export class SecretariaComponent implements OnInit {
           }).catch((error) => {
             alert('No se encontro el paciente.');
           });
+        }
+        else if(used){
+          alert('Fecha ocupada');
         }
       }
     });

@@ -143,6 +143,9 @@ export class PacienteComponent implements OnInit {
             alert('No se encontro el doctor.');
           });
         }
+        else if(used){
+          alert('Fecha ocupada');
+        }
       }
     });
   }
