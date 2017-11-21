@@ -57,6 +57,7 @@ export class SecretariaComponent implements OnInit {
         }
         this.ds.createPaciente(user.uid, name, email, utype);
         this.router.navigate([utype]);
+        // window.location.reload();
       })
         .catch((error) => {
           this.error = error;
@@ -204,7 +205,7 @@ export class SecretariaComponent implements OnInit {
             alert('No se encontro el paciente.');
           });
         }
-        else if(used){
+        else if (used) {
           alert('Fecha ocupada');
         }
       }
@@ -268,6 +269,10 @@ export class SecretariaComponent implements OnInit {
   get_doctores() {
     this.ds.af.auth.subscribe(
       (auth) => {
+        if (auth == null) {
+          window.location.reload();
+          return;
+        }
         this.userID = auth.uid;
         this.doctores = this.af.database.list('Secretarias/' + this.userID + '/Doctores', {
           query: {
@@ -303,17 +308,17 @@ export class SecretariaComponent implements OnInit {
       return;
     }
     var cfecha = [+fechal[2], +fechal[1], +fechal[0], +horal[0], +horal[1]];
-    for(var i = 0; cfecha.length; ++i){
-      if(cfecha[i] - now[i] > 0){
+    for (var i = 0; cfecha.length; ++i) {
+      if (cfecha[i] - now[i] > 0) {
         break;
       }
-      else if(cfecha[i] - now[i] < 0){
+      else if (cfecha[i] - now[i] < 0) {
         alert('Fecha pasada.');
         return;
       }
     }
     var daycheck = (now[0] == cfecha[0]) && (now[1] == cfecha[1]) && (now[2] == cfecha[2]);
-    if(daycheck){
+    if (daycheck) {
       alert('Same day.');
       return;
     }
@@ -354,7 +359,7 @@ export class SecretariaComponent implements OnInit {
             alert('No se encontro el paciente.');
           });
         }
-        else if(used){
+        else if (used) {
           alert('Fecha ocupada');
         }
       }
@@ -372,15 +377,15 @@ export class SecretariaComponent implements OnInit {
     // var daycheck2 = (now[0] == cfecha[0]) && (now[1] > cfecha[1]);
     // var daycheck3 = (now[0] > cfecha[0]);
     // var daycheck = daycheck1 || daycheck2 || daycheck3;
-    if(daycheck){
+    if (daycheck) {
       alert('Same day.');
       return;
     }
-    for(var i = 0; cfecha.length; ++i){
-      if(cfecha[i] - now[i] > 0){
+    for (var i = 0; cfecha.length; ++i) {
+      if (cfecha[i] - now[i] > 0) {
         break;
       }
-      else if(cfecha[i] - now[i] < 0){
+      else if (cfecha[i] - now[i] < 0) {
         alert('Fecha pasada.');
         return;
       }

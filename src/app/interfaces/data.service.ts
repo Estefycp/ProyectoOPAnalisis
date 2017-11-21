@@ -1,5 +1,6 @@
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/switchMap';
+import { AngularFireModule } from 'angularfire2';
 import { Injectable } from "@angular/core";
 import {
   AngularFire, AuthProviders, AuthMethods,
@@ -53,8 +54,7 @@ export class DataService {
     //   storageBucket: "citas-12fd1.appspot.com",
     //   messagingSenderId: "689432831653"
     // };
-    // this.secondary = new AngularFire(firebaseConfig, this.af.auth, this.af.database);
-    // firebase.initializeApp(firebaseConfig, "Secondary");
+    // this.secondary = AngularFireModule.initializeApp(firebaseConfig);
   }
 
   //Auth register/login/logout

@@ -40,6 +40,10 @@ export class PacienteComponent implements OnInit {
 
     this.ds.af.auth.subscribe(
       (auth) => {
+        if(auth == null){
+          window.location.reload();
+          return;
+        }
         this.userID = auth.uid;
         this.citas = this.af.database.list('Pacientes/' + this.userID + '/Citas', {
           query: {
