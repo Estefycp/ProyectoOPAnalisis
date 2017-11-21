@@ -27,6 +27,11 @@ export class LoginPageComponent {
     this.ds.loginWithEmail(email, password).then(() => {
       this.ds.af.auth.subscribe(
         (auth) =>{
+          // console.log(auth);
+          if(auth == null){
+            window.location.reload();
+            return;
+          }
           this.userID = auth.uid;
           this.i = this.af.database.object('Usuarios/'+this.userID+'/type', { preserveSnapshot: true });
           this.i.subscribe(snapshot => {

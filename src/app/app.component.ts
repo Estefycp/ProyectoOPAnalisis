@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from "@angular/router";
 import { RegistrationPageComponent } from './registration-page/registration-page.component';
-import {AngularFire, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2';
-import {DataService} from './interfaces/data.service';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { DataService } from './interfaces/data.service';
 
 
 @Component({
@@ -18,7 +18,8 @@ export class AppComponent {
   constructor(public afService: DataService, private router: Router, public af: AngularFire) {
     this.afService.af.auth.subscribe(
       (auth) => {
-        if(auth == null) {
+        // console.log(auth);
+        if (auth == null) {
           console.log("Not Logged in.");
           this.isLoggedIn = false;
           this.router.navigate(['login']);
@@ -26,7 +27,7 @@ export class AppComponent {
         else {
           console.log("Successfully Logged in.");
           this.userID = auth.uid;
-          this.i = this.af.database.object('Usuarios/'+this.userID+'/type', { preserveSnapshot: true });
+          this.i = this.af.database.object('Usuarios/' + this.userID + '/type', { preserveSnapshot: true });
           this.afService.displayName = auth.auth.email;
           this.afService.email = auth.auth.email;
           this.isLoggedIn = true;
@@ -40,5 +41,6 @@ export class AppComponent {
 
   logout() {
     this.afService.logout();
+    // this.router.navigate(['']);
   }
 }

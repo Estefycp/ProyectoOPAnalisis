@@ -10,7 +10,7 @@
             <tr data-toggle="modal" >
               <ul class="list-group">
               <li *ngFor="let cita of citas | async" class="list-group-item" (click)="set_current_cita(cita, cita.$key)">
-                  Nombre: {{cita.nombre}}<br>
+                  e-Mail: {{cita.nombre}}<br>
                   Hora: {{cita.hora}}<br>
                   Fecha: {{cita.fecha}}<br>
                 <td>

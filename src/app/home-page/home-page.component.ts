@@ -115,7 +115,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
           // var paciente: string = '-1';
           var hi = this.af.database.list('Pacientes', {
             query: {
-              orderByChild: 'name',
+              orderByChild: 'email',
               equalTo: nombre,
               limitToFirst: 1
             }
@@ -219,7 +219,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
           var done = false;
           var hi = this.af.database.list('Pacientes', {
             query: {
-              orderByChild: 'name',
+              orderByChild: 'email',
               equalTo: this.cita.nombre,
               limitToFirst: 1
             }
@@ -281,7 +281,7 @@ export class HomePageComponent implements OnInit, AfterViewChecked {
     var done = false;
     var hi = this.af.database.list('Pacientes', {
       query: {
-        orderByChild: 'name',
+        orderByChild: 'email',
         equalTo: this.cita.nombre,
         limitToFirst: 1
       }

@@ -181,7 +181,7 @@ export class SecretariaComponent implements OnInit {
           // var paciente: string = '-1';
           var hi = this.af.database.list('Pacientes', {
             query: {
-              orderByChild: 'name',
+              orderByChild: 'email',
               equalTo: nombre,
               limitToFirst: 1
             }
@@ -338,7 +338,7 @@ export class SecretariaComponent implements OnInit {
           var done = false;
           var hi = this.af.database.list('Pacientes', {
             query: {
-              orderByChild: 'name',
+              orderByChild: 'email',
               equalTo: this.cita.nombre,
               limitToFirst: 1
             }
@@ -389,7 +389,7 @@ export class SecretariaComponent implements OnInit {
     var done = false;
     var hi = this.af.database.list('Pacientes', {
       query: {
-        orderByChild: 'name',
+        orderByChild: 'email',
         equalTo: this.cita.nombre,
         limitToFirst: 1
       }

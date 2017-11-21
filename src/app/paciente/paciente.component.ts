@@ -175,7 +175,7 @@ export class PacienteComponent implements OnInit {
     var done = false;
     var hi = this.af.database.list('Doctores', {
       query: {
-        orderByChild: 'name',
+        orderByChild: 'email',
         // equalTo: this.cita.nombre,
         // limitToFirst: 1
       }
